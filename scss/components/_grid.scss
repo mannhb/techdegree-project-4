@@ -1,0 +1,68 @@
+// **********************************************
+// _grid.scss
+// styles related to the grid system and
+// main container.
+// major grid styles have been added here for you
+// but additional styling may be needed
+// **********************************************
+
+
+// grid base class
+.grid {
+
+  // .grid__row
+  &__row {
+    padding: 1em 10px;
+    display: flex;
+    flex-direction: column;
+
+    // NOTE: replace with media query mixin if aiming for exceeds
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
+  }
+
+  // .grid__col
+  &__col {
+
+    // create grid columns dynamically
+    // loop through each column size
+    @for $i from 1 through 12 {
+
+      // concatenate CSS selector, ie when $i = 1,
+      // selector would be .grid__col--1
+      &--#{$i} {
+
+        // base styles applied to all grid columns 
+        // NOTE: could be converted to a placeholder, along with margin
+        // from the  media query
+        margin-top: 10px;
+        flex-basis: 100%;
+
+        // NOTE: replace with media query mixin if aiming for exceeds
+        @media (min-width: 768px) {
+
+          // base stlyes applied to all grid columns
+          margin-top: 0;
+
+          // make column width a percentage of the column number / total columns
+          flex-basis: #{$i / 12 * 100 + "%"} ;
+        }
+      }
+    }
+  }
+}
+
+// targets all elements with classes that begin with grid__col
+[class^=grid__col] {
+  // grid__col + grid__col, targets two sibling columns
+  & + & {
+
+    // NOTE: replace with media query mixin if aiming for exceeds
+    @media (min-width: 768px) {
+
+      // add grid gutter
+      margin-left: 10px;
+    }
+  }
+}
